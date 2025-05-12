@@ -2,7 +2,6 @@
 def coincidence(array = [], diap = range(0, 0)):
     # проверяем наличие введенных аргументов по их значению
     if (array == []) or (diap == range(0, 0)):
-        print([])
         return []
     
     # set для исключения повторок
@@ -23,15 +22,14 @@ def coincidence(array = [], diap = range(0, 0)):
     range_list = list(diap)
     result = []
 
-    for el in range_list:
-        if el in digit_array:
-            result.append(el)
+    for i in digit_array:
+        if (i >= min(range_list)) and (i <= max(range_list)):
+            result.append(i)
 
-    print(result)
     return result
       
 
 # for tests
-coincidence([1, 2, 3, 4, 5], range(3, 6))
-coincidence()
-coincidence([None, 1, "foo", 4, 2, 2.5], range(1, 4))
+print(coincidence([1, 2, 3, 4, 5], range(3, 6)))
+print(coincidence())
+print(coincidence([None, 1, "foo", 4, 2, 2.5], range(1, 4)))

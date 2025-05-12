@@ -32,5 +32,3 @@ print(desert_1.__str__())
 desert_2 = JellyBean(name= "Cake 2", flavor= "black licorice")
 print(desert_2.is_delicious())
 print(desert_2.__str__())
-
-    
