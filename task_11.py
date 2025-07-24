@@ -1,4 +1,4 @@
-class Desert:
+class Dessert:
 
     def __init__(self, name = "Undefined", calories = 0.0):
         self._name = name
@@ -39,13 +39,13 @@ class Desert:
     
 
 
-desert_1 = Desert()
+desert_1 = Dessert()
 print(desert_1.is_healthy())
 print(desert_1.is_delicious())
 print(desert_1.__str__())
 print("------------")
 
-desert_2 = Desert("ugug", 400)
+desert_2 = Dessert("ugug", 400)
 print(desert_2.is_healthy())
 print(desert_2.is_delicious())
 print(desert_2._calories)

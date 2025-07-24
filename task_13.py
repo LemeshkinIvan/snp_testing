@@ -1,53 +1,51 @@
 import time
+import collections
+from functools import wraps
 
 def cached(max_size=None, seconds=None):
-    if not isinstance(max_size, int):
+    # Приводим max_size и seconds к целым числам, иначе делаем None
+    try:
+        max_size = int(max_size)
+    except (ValueError, TypeError):
         max_size = None
-    if not isinstance(seconds, (int, float)):
+
+    try:
+        seconds = int(seconds)
+    except (ValueError, TypeError):
         seconds = None
 
     def decorator(func):
-        cache = {}
-        id = 0
+        cache = collections.OrderedDict()
 
+        @wraps(func)
         def wrapper(*args, **kwargs):
-            now = time.time()
-            nonlocal id
-            id += 1
-            key = id
+            # хэш
+            key = (args, frozenset(kwargs.items()))
+            current_time = time.time()
 
-            # чистим старые записи
             if seconds is not None:
-                expired_keys = [k for k, (_, t) in cache.items() if now - t > seconds]
-                for k in expired_keys:
-                    del cache[k]
+                keys_to_delete = [k for k, (_, ts) in cache.items() if current_time - ts > seconds]
+                for k in keys_to_delete:
+                    cache.pop(k, None)
 
             if key in cache:
                 result, timestamp = cache[key]
-                return result
+            
+                if seconds is None or current_time - timestamp <= seconds:
+                    return result
+                else:
+                    del cache[key]  
 
+  
             result = func(*args, **kwargs)
-            cache[key] = (result, now)
+            cache[key] = (result, current_time)
 
-            # удаляем самый старый элемент, если размер кэша превышен
-            if max_size is not None and len(cache) > max_size:
-                # находим ключ с минимальным временем
-                oldest_key = min(cache.items(), key=lambda item: item[1][1])[0]
-                del cache[oldest_key]
+            if max_size is not None:
+                while len(cache) > max_size:
+                    cache.popitem(last=False) 
 
             return result
 
         return wrapper
 
     return decorator
-
-@cached(max_size=3, seconds = 10)
-def slow_function(x):
-    print(f"Вычисляю для {x}...")
-    return x ** 2
-
-
-print(slow_function(5))
-print(slow_function(5))
-time.sleep(15)
-print(slow_function(5))

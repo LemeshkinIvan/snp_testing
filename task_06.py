@@ -1,6 +1,7 @@
 WEAPONS = ['R', 'P', 'S']
 
-class WrongNumberOfPlayerError(Exception):
+# исправил
+class WrongNumberOfPlayersError(Exception):
     def __str__(self):
         return "Игроков должно быть 2"
     
@@ -21,10 +22,7 @@ def check_players_value(player_1, player_2) -> str:
         if player_1[1] == player_2[1]:
             return "Ничья"
         
-        if not (player_1[1] in WEAPONS):
-            raise NoSuchStrategyError()
-        
-        if not (player_2[1] in WEAPONS):
+        if not (player_1[1] in WEAPONS) or not (player_2[1] in WEAPONS):
             raise NoSuchStrategyError()
         
         return f"{player_2[0]} {player_2[1]}"
@@ -33,7 +31,7 @@ def check_players_value(player_1, player_2) -> str:
 
 def rps_game_winner(value = []):
     if (len(value) >= 3) or (len(value) <= 0):
-        raise WrongNumberOfPlayerError()
+        raise WrongNumberOfPlayersError()
     
     for player_step in value:
         if isinstance(player_step, list) == False:
@@ -46,5 +44,9 @@ def rps_game_winner(value = []):
     result = check_players_value(player_1, player_2)
     return result
     
-print(rps_game_winner([["player1", 'P'], ["player2", "S"]]))
-print(rps_game_winner([["player1", 'P'], ["player2", "A"]]))
+#print(rps_game_winner([["player1", 'P'], ["player2", "S"]]))
+#print(rps_game_winner([["player1", 'P'], ["player2", "A"]]))
+
+print(rps_game_winner([["player1", 'P'], ["player2", "R"]]))
+print(rps_game_winner([["player1", 'R'], ["player2", "S"]]))
+print(rps_game_winner([["player1", 'S'], ["player2", "P"]]))
