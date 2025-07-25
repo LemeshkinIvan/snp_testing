@@ -20,7 +20,7 @@ def check_players_value(player_1, player_2) -> str:
         return f"{player_1[0]} S"
     else:
         if player_1[1] == player_2[1]:
-            return "Ничья"
+            return f"player1 {player_2[1]}"
         
         if not (player_1[1] in WEAPONS) or not (player_2[1] in WEAPONS):
             raise NoSuchStrategyError()
@@ -50,3 +50,4 @@ def rps_game_winner(value = []):
 print(rps_game_winner([["player1", 'P'], ["player2", "R"]]))
 print(rps_game_winner([["player1", 'R'], ["player2", "S"]]))
 print(rps_game_winner([["player1", 'S'], ["player2", "P"]]))
+print(rps_game_winner([["player1", 'P'], ["player2", "P"]]))

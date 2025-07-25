@@ -5,16 +5,17 @@ class JellyBean(Dessert):
         super().__init__(name, calories)
         self._flavor = flavor
 
-    def set_flavor(self, value):
+    @property
+    def flavor(self):
+        return self._flavor    
+
+    @flavor.setter
+    def flavor(self, value):
         try:
             typed_value = str(value)
             self._flavor = typed_value if typed_value != '' else "Undefined flavor"
         except Exception as e:
             print(str(e))
-
-    @property
-    def get_flavor(self):
-        return self._flavor
     
     def is_delicious(self):       
         # !(bool value) 
