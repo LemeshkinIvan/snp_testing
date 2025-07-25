@@ -1,8 +1,8 @@
 class Dessert:
 
-    def __init__(self, name = "Undefined", calories = 0.0):
+    def __init__(self, name = "Undefined", calories: any = None):
         self._name = name
-        self._calories = float(calories)
+        self._calories = calories
 
     @property
     def name(self):
@@ -22,17 +22,17 @@ class Dessert:
     @calories.setter
     def calories(self, value):
         try:
-            typed_value = float(value)
-
-            if typed_value > 0:
-                self._calories = typed_value
-
+            typed_value = str(value)
+            self._calories = typed_value
         except Exception as e:
             print(str(e))
 
 
     def is_healthy(self) -> bool:
-        return self._calories <= 200
+        try:
+            return float(self._calories) <= 200
+        except:
+            return True
     
     def is_delicious(self) -> bool:
         return True
@@ -53,5 +53,8 @@ print(desert_2.is_healthy())
 print(desert_2.is_delicious())
 print(desert_2._calories)
 desert_2.calories = 300
+print(desert_2.__str__())
+desert_2.calories = "test_calories"
+print(desert_2.is_healthy())
 print(desert_2.__str__())
 print("------------")

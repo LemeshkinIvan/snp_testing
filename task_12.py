@@ -1,7 +1,7 @@
 from task_11 import Dessert
 
 class JellyBean(Dessert):
-    def __init__(self, name = "Undefined", calories = 0.0, flavor = 'Undefined flavor'):
+    def __init__(self, name = "Undefined", calories: any = None, flavor = 'Undefined flavor'):
         super().__init__(name, calories)
         self._flavor = flavor
 
@@ -18,7 +18,6 @@ class JellyBean(Dessert):
             print(str(e))
     
     def is_delicious(self):       
-        # !(bool value) 
         return not(self._flavor == "black licorise")
     
     def __str__(self):
@@ -26,7 +25,7 @@ class JellyBean(Dessert):
     
 
 # test
-desert_1 = JellyBean(name= "Cake", calories= 100, flavor= "bitter")
+desert_1 = JellyBean(name= "Cake", calories= "", flavor= "bitter")
 print(desert_1.is_delicious())
 print(desert_1.__str__())
 
