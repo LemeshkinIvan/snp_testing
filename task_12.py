@@ -24,11 +24,42 @@ class JellyBean(Dessert):
         return f"Desert has name: {self._name}\tcalories: {self._calories}\tflavor: {self._flavor}"
     
 
-# test
-desert_1 = JellyBean(name= "Cake", calories= "", flavor= "bitter")
-print(desert_1.is_delicious())
-print(desert_1.__str__())
+dessert = JellyBean()
+if not issubclass(dessert.__class__, JellyBean): raise Exception("Invalid inheritance")
+dessert.name = "test_name"
+print(dessert.name)
 
-desert_2 = JellyBean(name= "Cake 2", flavor= "black licorice")
-print(desert_2.is_delicious())
-print(desert_2.__str__())
+dessert.name = "test_name2"
+print(dessert.name)
+
+if dessert.name != "test_name2": raise Exception("Setter for name is not working")
+dessert.calories = "test_calories"
+print(dessert.calories)
+
+dessert.calories = "test_calories2"
+print(dessert.calories)
+
+if dessert.calories != "test_calories2": raise Exception("Setter for calories is not working")
+print(dessert.is_delicious())
+
+if not dessert.is_delicious(): raise Exception("Invalid method result")
+dessert.flavor = "test_flavor"
+print(dessert.flavor)
+
+print(dessert.is_healthy())
+
+dessert.calories = 300
+print(dessert.calories)
+300
+print(dessert.is_healthy())
+
+if dessert.is_healthy(): raise Exception("Logical error. Method must return False")
+print(dessert.is_delicious())
+
+if not dessert.is_delicious(): raise Exception("Invalid method result")
+dessert.calories = 200
+print(dessert.calories)
+200
+print(dessert.is_healthy())
+
+if dessert.is_healthy(): raise Exception("Logical error. Method must return False")
